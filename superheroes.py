@@ -60,6 +60,9 @@ class Hero:
         for item in self.abilities:
             total_attack += item.attack()
         return total_attack
+    
+    def add_armor(self,armor):
+        self.armors.append(armor)
 
 
     # Call the attack method on every ability in our ability list
@@ -106,26 +109,29 @@ class Team:
         It should call add_kill() on each hero with the number of kills made.
         """
 
-        total_attack = 0
-        enemy_attack = 0
-        kill_counter = 0
+        
+        total_damage = 0 
+        print("Total Damage: {}".format(total_damage))
+        total_kills = 0
+        print("Total Kills: {}".format(total_kills))
+
         for hero in self.heroes:
-            total_attack += hero.attack()
-        split_damage = total_attack / len(self.heroes)
+            print("Hero: {}".format(hero.name))
+            total_damage += hero.attack()
+            print("Damage: {}".format(total_damage))
+        
+        # for other_hero in other_team.heroes:
+        #     print("OtherHero: {}".format(other_hero.name))
+        
+        total_kills = other_team.defend(total_damage)
+        print("total_kills: {}".format(total_kills))
+        
+        
 
-        
-        for enemy_hero in other_team.heroes:
-            enemy_attack += enemy_hero.attack()
-        
-        self.defend(enemy_attack)
+        for hero in self.heroes:
+            print("HERE")
+            hero.add_kill(total_kills)
 
-        for enemy_hero in other_team.heroes:
-            enemy_hero.health -= split_damage
-            if enemy_hero.health <= 0:
-                kill_counter += 1
-        
-            for hero in self.heroes:
-                hero.add_kill(kill_counter)
 
 
         
@@ -142,37 +148,33 @@ class Team:
         total_armor = 0
         for hero in self.heroes:
             total_armor += hero.defend()
+            print("total armor {}".format(total_armor))
 
         damage_through_armor = damage_amt - total_armor
-
+        print("dmage thru armor: {}".format(damage_through_armor))
         if damage_through_armor < 0:
             damage_through_armor = 0
 
-        self.deal_damage(damage_through_armor)
-
-    def deal_damage(self, damage):
-        """
-        Divide the total damage amongst all heroes.
-        Return the number of heros that died in attack.
-        """
-
-        divided_damage = damage / len(self.heroes)
+        divided_damage = damage_through_armor / len(self.heroes)
         death_counter = 0
         for hero in self.heroes:
-            hero.health -= divided_damage
+            hero.take_damage(divided_damage)
             if hero.health < 0:
                 death_counter += 1
-
+        print("Death count: {}".format(death_counter))
+        # returns an int
         return death_counter
 
-    def revive_heroes(self, health=100):
+    
+
+    def revive_heroes(self, health=60):
         """
         This method should reset all heroes health to their
         original starting value.
         """
 
         for hero in self.heroes:
-            hero.health = 100
+            hero.health = health
 
     def stats(self):
         """
