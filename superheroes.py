@@ -213,10 +213,17 @@ class Arena:
        
 
     def build_team_one(self,team_name):
-       self.team_one = Team(team_name)
+      self.team_one = Team(input('What should we call team one?:'))
+      for _ in range(0,3):
+          add_hero = input('Name for the hero to be added:')
+          self.team_one.add_hero(add_hero)
+          
 
     def build_team_two(self,team_name):
-       self.team_two = Team(team_name)
+      self.team_one = Team(input('What should we call team two?:'))
+      for _ in range(0,3):
+          add_hero = input('Name for the hero to be added:')
+          self.team_one.add_hero(add_hero)
 
     def team_battle(self):
         """
