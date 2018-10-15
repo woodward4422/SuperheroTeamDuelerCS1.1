@@ -230,12 +230,19 @@ class Arena:
         This method should continue to battle teams until 
         one or both teams are dead.
         """
+        self.team_one.attack(self.team_two)
+        self.team_two.attack(self.team_one)
+
+        
 
     def show_stats(self):
         """
         This method should print out the battle statistics 
         including each heroes kill/death ratio.
         """
+        
+        self.team_one.stats()
+        self.team_two.stats()
 
 
 if __name__ == '__main__':
